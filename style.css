@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Vithkuqi:wght@500&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 20px;
+  background-color: #070b0e;
+  color: #dde6ee;
+  font-family: 'Noto Sans Vithkuqi', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 600px;
+  margin: 0 10px;
+  padding: 5px;
+  font-size: 1.3em;
+  gap: 10px;
+  background: #121619;
+  border: 2px solid #18252f;
+}
+
+.screen {
+  width: 100%;
+  height: 40%;
+  border-bottom: 1px solid #dde6ee09;
+}
+
+#operationScreen {
+  height: 70%;
+  /* border: 1px solid blue; */
+}
+
+.buttons {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons .row {
+  display: flex;
+  flex: auto;
+}
+
+.button {
+  /* border: 1px solid green; */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+#equals {
+  flex: 2.1;
+  background: #18252f;
+}
+
+#equals:hover {
+  background: #070b0e;
+}
+
+.button:hover {
+  cursor: pointer;
+  background: #070b0e;
+}
+
+#equals,
+#division,
+#multiplication,
+#subtraction,
+#addition {
+  font-size: 1.5em;
+}
+
+.accent {
+  color: #638eb0;
+}
+
+footer {
+  text-align: center;
+  color: #638eb0;
+}
+
+footer a {
+  color: #638eb0;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 400px) {
+  .container {
+    width: 350px;
+  }
+}
