@@ -10,40 +10,40 @@
   <body>
     <div class="container">
       <div class="screen">
-        <div id="operationScreen"></div>
-        <div id="answerScreen"></div>
+        <div id="previousScreen">999999999999</div>
+        <div id="currentScreen">= 9999999999</div>
       </div>
       <div class="buttons">
         <div class="row first">
-          <div class="button accent" id="allClear">AC</div>
-          <div class="button" id="delete">
+          <div class="button accent" id="allClear" data-button="AC">AC</div>
+          <div class="button" id="delete" data-button="delete">
             <img src="./img/delete.svg" alt="delete icon" />
           </div>
-          <div class="button accent" id="percent">&percnt;</div>
-          <div class="button accent" id="division">&div;</div>
+          <div class="button accent" id="percent" data-button="%">&percnt;</div>
+          <div class="button accent" id="division" data-button="/">&div;</div>
         </div>
         <div class="row second">
-          <div class="button" id="seven">7</div>
-          <div class="button" id="eight">8</div>
-          <div class="button" id="nine">9</div>
-          <div class="button accent" id="multiplication">&times;</div>
+          <div class="button digit" id="seven" data-button="7">7</div>
+          <div class="button digit" id="eight" data-button="8">8</div>
+          <div class="button digit" id="nine" data-button="9">9</div>
+          <div class="button accent" id="multiplication" data-button="*">&times;</div>
         </div>
         <div class="row third">
-          <div class="button" id="four">4</div>
-          <div class="button" id="five">5</div>
-          <div class="button" id="six">6</div>
-          <div class="button accent" id="subtraction">&minus;</div>
+          <div class="button digit" id="four" data-button="4">4</div>
+          <div class="button digit" id="five" data-button="5">5</div>
+          <div class="button digit" id="six" data-button="6">6</div>
+          <div class="button accent" id="subtraction" data-button="-">&minus;</div>
         </div>
         <div class="row forth">
-          <div class="button" id="one">1</div>
-          <div class="button" id="two">2</div>
-          <div class="button" id="three">3</div>
-          <div class="button accent" id="addition">&plus;</div>
+          <div class="button digit" id="one" data-button="1">1</div>
+          <div class="button digit" id="two" data-button="2">2</div>
+          <div class="button digit" id="three" data-button="3">3</div>
+          <div class="button accent" id="addition" data-button="+">&plus;</div>
         </div>
         <div class="row fifth">
-          <div class="button" id="zero">0</div>
-          <div class="button" id="point">&period;</div>
-          <div class="button accent" id="equals">&equals;</div>
+          <div class="button digit" id="zero" data-button="0">0</div>
+          <div class="button" id="point" data-button=".">&period;</div>
+          <div class="button accent" id="equals" data-button="=">&equals;</div>
         </div>
       </div>
     </div>
@@ -55,5 +55,10 @@
       </p>
     </footer>
     <script src="./calculator.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.2.1/decimal.js"
+      integrity="sha512-GKse2KVGCCMVBn4riigHjXE8j5hCxYLPXDw8AvcjUtrt+a9TbZFtIKGdArXwYOlZvdmkhQLWQ46ZE3Q1RIa7uQ=="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
