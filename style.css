@@ -76,6 +76,7 @@ body {
   justify-content: center;
   align-items: center;
   transition: background 0.3s;
+  user-select: none;
 }
 
 #equals {
