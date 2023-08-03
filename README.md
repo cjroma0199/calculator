@@ -1,4 +1,4 @@
-# Calculator Code Documentation (The Odin Project)
+# Calculator (The Odin Project)
 
 This is a simple JavaScript calculator code developed as part of The Odin Project's curriculum. The Odin Project is a free and open-source web development course designed to help learners build real-world projects and gain practical experience in web development.
 
