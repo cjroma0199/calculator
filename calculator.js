@@ -3,8 +3,10 @@ const buttons = document.querySelectorAll('.button');
 const currentScreen = document.querySelector('#currentScreen');
 const previousScreen = document.querySelector('#previousScreen');
 const deleteImg = document.querySelector('#deleteImg');
+const allClearButton = document.querySelector('#allClear');
 
 deleteImg.addEventListener('click', deleteChar);
+allClearButton.addEventListener('click', allClear);
 
 const operandsAndOperator = {
   firstNum: null,
@@ -18,29 +20,34 @@ buttons.forEach((button) =>
   })
 );
 window.addEventListener('keydown', (e) => {
-  if (isScreenFull) return;
-  if (isNumber(getChar(e)) || (getChar(e) == '.' && isDecimalPresent())) {
-  }
+  app(e);
 });
 
 function operate({ firstNum, operator, secondNum }) {
   firstNum = +firstNum;
   secondNum = +secondNum;
-  console.log([firstNum, operator, secondNum]);
   switch (operator) {
     case '+':
-      return firstNum + secondNum;
+      ans = firstNum + secondNum;
+      break;
     case '-':
-      return firstNum - secondNum;
+      ans = firstNum - secondNum;
+      break;
     case '*':
-      return firstNum * secondNum;
+      ans = firstNum * secondNum;
+      break;
     case '/':
-      return firstNum / secondNum;
+      ans = firstNum / secondNum;
+      break;
     case '%':
-      return firstNum % secondNum;
+      ans = firstNum % secondNum;
+      break;
     default:
-      return null;
+      ans = null;
+      break;
   }
+  if (ans.toString().length > 10) return ans.toExponential(4);
+  return ans;
 }
 
 function app(e) {
@@ -50,35 +57,54 @@ function app(e) {
 
   if (isOperator(e)) {
     if (!operandsAndOperator.operator) operandsAndOperator.operator = getChar(e);
-    if (previousScreen.textContent) {
+    if (previousScreen.textContent && !currentScreen.textContent.includes('=')) {
       operandsAndOperator.secondNum = currentScreen.textContent;
     } else {
-      operandsAndOperator.firstNum = currentScreen.textContent;
+      operandsAndOperator.firstNum = currentScreen.textContent.includes('=')
+        ? currentScreen.textContent.slice(1)
+        : currentScreen.textContent;
       updatePreviousScreen(operandsAndOperator);
       clearScreen(currentScreen);
     }
 
-    if (operandsAndOperator.firstNum && operandsAndOperator.secondNum) {
+    if (operandsAndOperator.secondNum) {
       operandsAndOperator.firstNum = operate(operandsAndOperator);
       operandsAndOperator.operator = getChar(e);
+      operandsAndOperator.secondNum = null;
       updatePreviousScreen(operandsAndOperator);
       clearScreen(currentScreen);
     }
   }
-  console.log(e);
+
+  if (isEquals(e)) {
+    if (currentScreen.textContent && operandsAndOperator.operator) {
+      operandsAndOperator.secondNum = currentScreen.textContent;
+    }
+    if (!Object.values(operandsAndOperator).includes(null)) {
+      updatePreviousScreen(operandsAndOperator);
+      operandsAndOperator.firstNum = operate(operandsAndOperator);
+      currentScreen.textContent = `= ${operandsAndOperator.firstNum}`;
+      operandsAndOperator.operator = null;
+      operandsAndOperator.secondNum = null;
+    }
+  }
+
   if (isScreenFull()) return;
   if (isNumber(char) || (char == '.' && !isDecimalPresent())) {
     addToLowerScreen(char);
   }
 }
 
-function updatePreviousScreen(data) {
-  return (previousScreen.textContent = `${data.firstNum} ${operator.convert(
-    data.operator
-  )}`);
+function updatePreviousScreen({ firstNum, operator, secondNum }) {
+  if (!secondNum) {
+    return (previousScreen.textContent = `${firstNum} ${operatorCon.convert(operator)}`);
+  }
+  return (previousScreen.textContent = `${firstNum} ${operatorCon.convert(
+    operator
+  )} ${secondNum}`);
 }
 
-const operator = {
+const operatorCon = {
   '+': '+',
   '-': '-',
   '*': '×',
@@ -88,6 +114,14 @@ const operator = {
     return this[operator];
   },
 };
+
+function allClear() {
+  currentScreen.textContent = '0';
+  previousScreen.textContent = '';
+  operandsAndOperator.firstNum = null;
+  operandsAndOperator.operator = null;
+  operandsAndOperator.secondNum = null;
+}
 
 function clearScreen(screen) {
   return (screen.textContent = '');
@@ -100,6 +134,11 @@ function isScreenFull() {
 function isDelete(e) {
   if (e instanceof MouseEvent) return e.target.id == 'delete';
   return e.key == 'Backspace';
+}
+
+function isEquals(e) {
+  if (e instanceof MouseEvent) return e.target.id == 'equals';
+  return e.key == 'Enter';
 }
 
 function isNumber(char) {
@@ -121,6 +160,9 @@ function isOperator(e) {
 }
 
 function addToLowerScreen(char) {
+  if (currentScreen.textContent === '' && char == '.') {
+    return (currentScreen.textContent = `0${char}`);
+  }
   if (currentScreen.textContent === '0' && char != '.') {
     currentScreen.textContent = char;
     return;
@@ -133,6 +175,5 @@ function addToLowerScreen(char) {
 function deleteChar() {
   let screenValue = currentScreen.textContent;
   if (screenValue.length === 1) return (currentScreen.textContent = 0);
-  console.log(screenValue);
   currentScreen.textContent = screenValue.slice(0, screenValue.length - 1);
 }
